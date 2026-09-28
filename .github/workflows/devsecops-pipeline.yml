@@ -50,9 +50,14 @@ jobs:
 
           python-version: "3.11" 
 
-- name: Install Node dependencies
-  working-directory: api
-  run: npm install
+  
+
+      - name: Install Node dependencies 
+
+        working-directory: api 
+
+        run: npm install 
+
   
 
       - name: Run Snyk Open Source Scan 
@@ -79,4 +84,4 @@ jobs:
 
           path: "." 
 
-          format: "HTML" 
+          format: "HTML"
