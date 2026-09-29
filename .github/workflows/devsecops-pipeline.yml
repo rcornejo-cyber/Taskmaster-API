@@ -97,3 +97,77 @@ jobs:
       - name: Build Docker images 
 
         run: docker compose build 
+
+  
+
+  dast: 
+
+    name: OWASP ZAP DAST 
+
+    runs-on: ubuntu-latest 
+
+    needs: build-test 
+
+  
+
+    steps: 
+
+      - name: Checkout repository 
+
+        uses: actions/checkout@v4 
+
+  
+
+      - name: Start application 
+
+        run: docker compose up -d 
+
+  
+
+      - name: Wait for API 
+
+        run: | 
+
+          for i in {1..30}; do 
+
+            if curl -s http://localhost:3000 > /dev/null; then 
+
+              echo "API is responding" 
+
+              exit 0 
+
+            fi 
+
+            echo "Waiting for API..." 
+
+            sleep 5 
+
+          done 
+
+          echo "API did not become available" 
+
+          docker compose logs 
+
+          exit 1 
+
+  
+
+      - name: OWASP ZAP Baseline Scan 
+
+        uses: zaproxy/action-baseline@v0.15.0 
+
+        continue-on-error: true 
+
+        with: 
+
+          target: "http://localhost:3000" 
+
+          artifact_name: "zap-baseline-report" 
+
+  
+
+      - name: Stop application 
+
+        if: always() 
+
+        run: docker compose down 
