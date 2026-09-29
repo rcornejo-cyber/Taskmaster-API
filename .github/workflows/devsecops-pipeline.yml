@@ -59,7 +59,8 @@ jobs:
         run: npm install 
 
   
-- name: Run Snyk Open Source Scan 
+
+      - name: Run Snyk Open Source Scan 
 
         uses: snyk/actions/node@master 
 
@@ -72,12 +73,6 @@ jobs:
         with: 
 
           args: --file=api/package.json 
-
-
-
-
-
-
 
   
 
