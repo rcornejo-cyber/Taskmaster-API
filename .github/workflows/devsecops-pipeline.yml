@@ -59,20 +59,25 @@ jobs:
         run: npm install 
 
   
-
-      - name: Run Snyk Open Source Scan 
+- name: Run Snyk Open Source Scan 
 
         uses: snyk/actions/node@master 
 
-        env: 
-
         continue-on-error: true 
+
+        env: 
 
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
 
         with: 
 
           args: --file=api/package.json 
+
+
+
+
+
+
 
   
 
