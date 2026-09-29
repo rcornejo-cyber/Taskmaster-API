@@ -62,10 +62,10 @@ jobs:
 
       - name: Run Snyk Open Source Scan 
 
-        uses:  snyk/actions/node@master
+        uses: snyk/actions/node@master 
 
         env: 
-       
+
         continue-on-error: true 
 
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
